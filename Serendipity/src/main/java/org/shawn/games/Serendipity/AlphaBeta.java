@@ -444,11 +444,11 @@ public class AlphaBeta {
 
 				int score = -quiesce(board, -probcutBeta, -probcutBeta + 1, ply + 1);
 
-				board.undoMove();
-				accumulators.updateAccumulators(board, move, true);
-
 				if (score >= probcutBeta)
 					score = -mainSearch(board, depth - 4, -probcutBeta, -probcutBeta + 1, ply + 1);
+
+				board.undoMove();
+				accumulators.updateAccumulators(board, move, true);
 
 				if (score >= probcutBeta) {
 					tt.write(board.getIncrementalHashKey(), TranspositionTable.NodeType.LOWERBOUND, depth - 3,
